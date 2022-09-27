@@ -75,6 +75,27 @@ public class ProdutosTest {
 
     }
 
+    @Test
+    @DisplayName("Posso adicionar produtos com a faixa de valor entre 0,00 e 7.000,00")
+    public void possoAdicionarProdutosComValoresEntreUmCentavoESeteMil(){
+
+        // Fazer login
+        String toastMensagem = new LoginpPage(navegador)
+                .informarOUsario("admin")
+                .informarASenha("admin")
+                .submeterFormularioDeLogin()
+                .acessarFormularioDeAdicaoNovoProduto()
+                .informarNomeDoProduto("PlayStation 5")
+                .informarProdutoValor("69999")
+                .informarProdutoCores("Roxo, Amarelo")
+                .submeterFormularioDeAdicaoComErro()
+                .capturarMensagemApresentada();
+
+        // Vou validar se a mesagem de erro foi apresentada
+        Assertions.assertEquals("Produto adicionado com sucesso", toastMensagem);
+
+    }
+
 
     @AfterEach
     public void afterEach(){
