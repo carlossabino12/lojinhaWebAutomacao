@@ -38,25 +38,43 @@ public class ProdutosTest {
     public void testNaoEPermitidoResgistrarProdutosComValorIgualAZero(){
 
         // Fazer login
-        new LoginpPage(navegador)
+        String toastMensagem = new LoginpPage(navegador)
                 .informarOUsario("admin")
                 .informarASenha("admin")
                 .submeterFormularioDeLogin()
-                .acessarFormularioDeAdicaoNovoProduto();
-
-        // Vou preencher as informações do produto e o valor igual a zero
-        navegador.findElement(By.id("produtonome")).sendKeys("MacBook Pro");
-        navegador.findElement(By.name("produtovalor")).sendKeys("000");
-        navegador.findElement(By.id("produtocores")).sendKeys("vermelho,preto");
-
-        // Vou submeter o formulário
-        navegador.findElement(By.cssSelector("button[class='btn waves-effect waves-light']")).click();
+                .acessarFormularioDeAdicaoNovoProduto()
+                .informarNomeDoProduto("MacBook Pro")
+                .informarProdutoValor("000")
+                .informarProdutoCores("preto, vermelho")
+                .submeterFormularioDeAdicaoComErro()
+                .capturarMensagemApresentada();
 
         // Vou validar se a mesagem de erro foi apresentada
-        String toastMensage = navegador.findElement(By.cssSelector(".toast.rounded")).getText();
-        Assertions.assertEquals("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00", toastMensage);
+        Assertions.assertEquals("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00", toastMensagem);
 
     }
+
+    @Test
+    @DisplayName("Não é permitido resgistrar um produto com valor maior que 7k")
+    public void testNaoEPermitidoResgistrarProdutosComValorMaiorQueSeteMil(){
+
+        // Fazer login
+        String toastMensagem = new LoginpPage(navegador)
+                .informarOUsario("admin")
+                .informarASenha("admin")
+                .submeterFormularioDeLogin()
+                .acessarFormularioDeAdicaoNovoProduto()
+                .informarNomeDoProduto("PlayStation 4")
+                .informarProdutoValor("700001")
+                .informarProdutoCores("branco, azul")
+                .submeterFormularioDeAdicaoComErro()
+                .capturarMensagemApresentada();
+
+        // Vou validar se a mesagem de erro foi apresentada
+        Assertions.assertEquals("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00", toastMensagem);
+
+    }
+
 
     @AfterEach
     public void afterEach(){

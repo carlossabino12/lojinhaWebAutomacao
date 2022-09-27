@@ -20,4 +20,9 @@ public class ListaDeProdutosPage {
 
         return new AdicionarProdutosPage(navegador);
     }
+
+    public String capturarMensagemApresentada(){
+
+        return navegador.findElement(By.cssSelector(".toast.rounded")).getText();
+    }
 }
