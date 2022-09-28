@@ -55,7 +55,7 @@ public class ProdutosTest {
     }
 
     @Test
-    @DisplayName("Não é permitido resgistrar um produto com valor maior que 7k")
+    @DisplayName("Não é permitido resgistrar um produto com valor maior que 7.000,00 mil")
     public void testNaoEPermitidoResgistrarProdutosComValorMaiorQueSeteMil(){
 
         // Fazer login
@@ -76,8 +76,8 @@ public class ProdutosTest {
     }
 
     @Test
-    @DisplayName("Posso adicionar produtos com a faixa de valor entre 0,00 e 7.000,00")
-    public void possoAdicionarProdutosComValoresEntreUmCentavoESeteMil(){
+    @DisplayName("Posso adicionar produtos com valor de valor 0,01 centavo")
+    public void possoAdicionarProdutosComValoreDeUmCentavo(){
 
         // Fazer login
         String toastMensagem = new LoginpPage(navegador)
@@ -86,9 +86,30 @@ public class ProdutosTest {
                 .submeterFormularioDeLogin()
                 .acessarFormularioDeAdicaoNovoProduto()
                 .informarNomeDoProduto("PlayStation 5")
-                .informarProdutoValor("69999")
+                .informarProdutoValor("001")
                 .informarProdutoCores("Roxo, Amarelo")
-                .submeterFormularioDeAdicaoComErro()
+                .submeterFormularioDeAdicaoComSucesso()
+                .capturarMensagemApresentada();
+
+        // Vou validar se a mesagem de erro foi apresentada
+        Assertions.assertEquals("Produto adicionado com sucesso", toastMensagem);
+
+    }
+
+    @Test
+    @DisplayName("Posso adicionar produtos com valor de 7.000,00 mil")
+    public void possoAdicionarProdutosComValoreDeSeteMil(){
+
+        // Fazer login
+        String toastMensagem = new LoginpPage(navegador)
+                .informarOUsario("admin")
+                .informarASenha("admin")
+                .submeterFormularioDeLogin()
+                .acessarFormularioDeAdicaoNovoProduto()
+                .informarNomeDoProduto("PlayStation 5")
+                .informarProdutoValor("700000")
+                .informarProdutoCores("Roxo, Amarelo")
+                .submeterFormularioDeAdicaoComSucesso()
                 .capturarMensagemApresentada();
 
         // Vou validar se a mesagem de erro foi apresentada

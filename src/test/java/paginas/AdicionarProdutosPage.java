@@ -42,4 +42,10 @@ public class AdicionarProdutosPage {
         return new ListaDeProdutosPage(navegador);
     }
 
+    public FormularioDeListagemDeProdutosPage submeterFormularioDeAdicaoComSucesso(){
+
+        navegador.findElement(By.cssSelector("button[class='btn waves-effect waves-light']")).click();
+
+        return new FormularioDeListagemDeProdutosPage(navegador);
+    }
 }
