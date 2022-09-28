@@ -91,7 +91,7 @@ public class ProdutosTest {
                 .submeterFormularioDeAdicaoComSucesso()
                 .capturarMensagemApresentada();
 
-        // Vou validar se a mesagem de erro foi apresentada
+        // Vou validar se a mesagem de sucesso foi apresentada
         Assertions.assertEquals("Produto adicionado com sucesso", toastMensagem);
 
     }
@@ -112,7 +112,7 @@ public class ProdutosTest {
                 .submeterFormularioDeAdicaoComSucesso()
                 .capturarMensagemApresentada();
 
-        // Vou validar se a mesagem de erro foi apresentada
+        // Vou validar se a mesagem de sucesso foi apresentada
         Assertions.assertEquals("Produto adicionado com sucesso", toastMensagem);
 
     }
